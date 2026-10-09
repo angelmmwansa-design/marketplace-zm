@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARKETPLACE ZM - Zambia's Premium Marketplace</title>
+    <style>
+        /* Modern Clean Styling Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5; /* Clean light gray like Facebook */
+            color: #1c1e21;
+        }
+        .hidden-view { display: none !important; }
+
+        /* Modern Premium Navigation */
+        nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1877f2; /* Royal Blue */
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: #00a400; /* Green accent */ }
+        
+        .search-wrapper {
+            flex: 1;
+            max-width: 460px;
+            margin: 0 24px;
+            display: flex;
+            gap: 8px;
+        }
+        .search-input {
+            width: 100%;
+            background-color: #f0f2f5;
+            border: 1px solid #ccd0d5;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-input:focus {
+            background-color: #ffffff;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+        .search-btn {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 0 22px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: #606770;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .nav-link:hover { color: #1877f2; }
+        .badge {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background-color: #fa3e3e;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+        .user-profile-badge {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1c1e21;
+            background-color: #e7f3ff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #1877f2;
+        }
+        .btn-logout {
+            background-color: #f0f2f5;
+            color: #050505;
+            border: 1px solid #ccd0d5;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Clean Filter Strip */
+        .filter-bar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 14px 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        select, .price-input {
+            background-color: #f0f2f5;
+            border: 1px solid #ccd0d5;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            outline: none;
+            color: #1c1e21;
+        }
+
+        /* Entrance / Gatekeeper Wall Styling */
+        .entrance-container {
+            max-width: 1000px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            padding: 0 20px;
+            align-items: center;
+        }
+        .entrance-left h1 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #1877f2;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .entrance-left p {
+            font-size: 20px;
+            line-height: 1.4;
+            color: #1c1e21;
+        }
+        .auth-box-card {
+            background-color: #ffffff;
+            padding: 28px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .auth-tab-row {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            width: 50%;
+            text-align: center;
+            padding-bottom: 12px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: #606770;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            color: #1877f2;
+            border-bottom: 3px solid #1877f2;
+        }
+        
+        /* Modern Inputs and Forms */
+        .form-input-group {
+            margin-bottom: 16px;
+        }
+        .form-input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #606770;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .form-input-group input, .form-input-group select, .form-input-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+        .form-input-group input:focus, .form-input-group select:focus {
+            border-color: #1877f2;
+        }
+        .btn-submit-blue {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .btn-submit-green {
+            background-color: #42b72a;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* Marketplace Product Cards Layout */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 24px;
+        }
+        .product-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-img-placeholder {
+            aspect-ratio: 16/10;
+            background-color: #f2f3f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8d949e;
+            position: relative;
+        }
+        .card-inner-content {
+            padding: 16px;
+            flex-grow: 1;
+        }
+        .card-region {
+            font-size: 11px;
+            font-weight: 700;
+            color: #65676b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .card-product-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .card-product-title:hover { color: #1877f2; text-decoration: underline; }
+        .card-footer-strip {
+            padding: 14px 16px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1c1e21;
+        }
+
+        /* Detail View and Chat UI Elements */
+        .split-detail-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background-color: #ffffff;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .chat-app-box {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            height: 540px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .chat-left-bar {
+            width: 30%;
+            border-right: 1px solid #e5e7eb;
+            background-color: #f8f9fa;
+        }
+        .chat-right-stream {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .messages-container {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f0f2f5;
+            overflow-y: auto;
+            display: flex;
